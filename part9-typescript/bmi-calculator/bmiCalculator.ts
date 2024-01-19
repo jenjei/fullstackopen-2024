@@ -1,3 +1,5 @@
+import { parseBmiArguments } from "./utils";
+
 function calculateBmi(height: number, weight: number): string {
   const heightInMeters = height / 100;
   const bmi = weight / (heightInMeters * heightInMeters);
@@ -13,8 +15,29 @@ function calculateBmi(height: number, weight: number): string {
   }
 }
 
+// hard-coded version:
 const height = 170; // in centimeters
 const weight = 65; // in kilograms
 
 const bmiResult = calculateBmi(height, weight);
-console.log(bmiResult);
+console.log("height (cm): ", 170, "weight (kg): ", weight, "BMI: ", bmiResult);
+
+// command line args version with error handling:
+
+try {
+  const { height, weight } = parseBmiArguments(process.argv);
+  console.log(
+    "height (cm): ",
+    height,
+    "weight (kg):",
+    weight,
+    "bmi:",
+    calculateBmi(height, weight)
+  );
+} catch (error: unknown) {
+  let errorMessage = "Something went wrong.";
+  if (error instanceof Error) {
+    errorMessage += " Error: " + error.message;
+  }
+  console.log(errorMessage);
+}

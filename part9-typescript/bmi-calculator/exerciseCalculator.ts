@@ -1,3 +1,5 @@
+import { parseExerciseArguments } from "./utils";
+
 function calculateExercises(
   dailyExerciseHours: Array<number>,
   target: number
@@ -33,6 +35,27 @@ function calculateExercises(
   };
 }
 
+// hard-coded version:
+/*
 const exerciseHours = [3, 0, 2, 4.5, 0, 3, 1];
 
 console.log(calculateExercises(exerciseHours, 2));
+*/
+
+// command line args version with error handling:
+
+try {
+  const { target, exerciseHours } = parseExerciseArguments(process.argv);
+  console.log(
+    "exercise target: ",
+    target,
+    "\n",
+    calculateExercises(exerciseHours, target)
+  );
+} catch (error: unknown) {
+  let errorMessage = "Something went wrong.";
+  if (error instanceof Error) {
+    errorMessage += " Error: " + error.message;
+  }
+  console.log(errorMessage);
+}
