@@ -2,11 +2,38 @@ export interface Title {
   headerText: string;
 }
 
-export interface TotalExercises {
-  total: number;
-}
-
-export interface Courses {
-  courseName: string;
+interface CoursePartBase {
+  name: string;
   exerciseCount: number;
 }
+
+interface CoursePartWithDescription extends CoursePartBase {
+  description: string;
+}
+
+interface CoursePartBasic extends CoursePartWithDescription {
+  kind: "basic";
+}
+
+interface CoursePartGroup extends CoursePartBase {
+  groupProjectCount: number;
+  kind: "group";
+}
+
+interface CoursePartBackground extends CoursePartWithDescription {
+  backgroundMaterial: string;
+  kind: "background";
+}
+
+interface CoursePartWithRequirements
+  extends CoursePartBase,
+    CoursePartWithDescription {
+  requirements: string[];
+  kind: "special";
+}
+
+export type CoursePart =
+  | CoursePartBasic
+  | CoursePartGroup
+  | CoursePartBackground
+  | CoursePartWithRequirements;
