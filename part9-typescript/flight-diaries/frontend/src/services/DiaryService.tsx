@@ -9,3 +9,9 @@ export const getAllDiaryNotes = () => {
     .get<DiaryEntry[]>(`${baseUrl}/diaries`)
     .then((response) => response.data);
 };
+
+export const createNewDiaryEntry = (diary: DiaryEntry) => {
+  return axios
+    .post<DiaryEntry>(`${baseUrl}/diaries`, diary)
+    .then((response) => response.data);
+};
