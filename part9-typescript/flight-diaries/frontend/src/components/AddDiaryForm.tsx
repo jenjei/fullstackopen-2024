@@ -1,37 +1,54 @@
-import { DiaryEntry } from "../types";
+import { DiaryEntry, Notification } from "../types";
 import { useState } from "react";
+import axios from "axios";
 import { createNewDiaryEntry } from "../services/DiaryService";
+import ErrorNotification from "./ErrorNotification";
 
 const AddDiaries = (props: {
   data: React.Dispatch<React.SetStateAction<DiaryEntry[]>>;
   diarylist: DiaryEntry[];
+  setError: React.Dispatch<React.SetStateAction<Notification>>;
+  error: Notification;
 }) => {
   const [date, setDate] = useState("");
   const [weather, setWeather] = useState("");
   const [visibility, setVisibility] = useState("");
   const [comment, setComment] = useState("");
 
-  const diaryCreation = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const diaryObject = {
-      date: date,
-      weather: weather,
-      visibility: visibility,
-      comment: comment,
-      id: props.diarylist.length + 1,
-    };
-    createNewDiaryEntry(diaryObject).then((data) => {
-      props.data(props.diarylist.concat(data));
-    });
-    setDate("");
-    setWeather("");
-    setVisibility("");
-    setComment("");
+  const diaryCreation = async (event: React.SyntheticEvent) => {
+    try {
+      event.preventDefault();
+
+      const diaryObject = {
+        date: date,
+        weather: weather,
+        visibility: visibility,
+        comment: comment,
+        id: props.diarylist.length + 1,
+      };
+
+      await createNewDiaryEntry(diaryObject).then((data) => {
+        props.data(props.diarylist.concat(data));
+      });
+      console.log(props);
+
+      setDate("");
+      setWeather("");
+      setVisibility("");
+      setComment("");
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        props.setError(error.response?.data);
+      } else {
+        console.error(error);
+      }
+    }
   };
 
   return (
     <div style={{ padding: "20px" }}>
       <h3>Add a Diary entry</h3>
+      <ErrorNotification message={props.error} setError={props.setError} />
       <form onSubmit={diaryCreation}>
         <div
           style={{
