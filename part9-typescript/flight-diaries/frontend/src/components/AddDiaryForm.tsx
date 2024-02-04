@@ -1,4 +1,4 @@
-import { DiaryEntry, Notification } from "../types";
+import { DiaryEntry, Notification, Weather, Visibility } from "../types";
 import { useState } from "react";
 import axios from "axios";
 import { createNewDiaryEntry } from "../services/DiaryService";
@@ -14,6 +14,8 @@ const AddDiaries = (props: {
   const [weather, setWeather] = useState("");
   const [visibility, setVisibility] = useState("");
   const [comment, setComment] = useState("");
+  const weatherOptions = Object.values(Weather);
+  const visibilityOptions = Object.values(Visibility);
 
   const diaryCreation = async (event: React.SyntheticEvent) => {
     try {
@@ -54,13 +56,14 @@ const AddDiaries = (props: {
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "250px",
+            width: "450px",
             justifyContent: "space-between",
           }}
         >
           <p>Date:</p>
           <input
-            style={{ height: "20px", width: "100px", marginTop: "15px" }}
+            type="date"
+            style={{ height: "20px", width: "150px", marginTop: "15px" }}
             value={date}
             onChange={(event) => setDate(event.target.value)}
           />
@@ -69,43 +72,59 @@ const AddDiaries = (props: {
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "250px",
+            width: "450px",
             justifyContent: "space-between",
           }}
         >
           <p>Weather:</p>
-          <input
-            style={{ height: "20px", width: "100px", marginTop: "15px" }}
-            value={weather}
-            onChange={(event) => setWeather(event.target.value)}
-          />
+          {weatherOptions.map((option, index) => (
+            <label key={index}>
+              <input
+                style={{ marginTop: "22px" }}
+                type="radio"
+                name="weather"
+                value={option}
+                checked={weather === option}
+                onChange={(event) => setWeather(event.target.value)}
+              />
+              {option}
+            </label>
+          ))}
         </div>
         <div
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "250px",
+            width: "450px",
             justifyContent: "space-between",
           }}
         >
-          <p>Visibility:</p>
-          <input
-            style={{ height: "20px", width: "100px", marginTop: "15px" }}
-            value={visibility}
-            onChange={(event) => setVisibility(event.target.value)}
-          />
+          <p style={{ marginRight: "100px" }}>Visibility:</p>
+          {visibilityOptions.map((option, index) => (
+            <label key={index}>
+              <input
+                style={{ marginTop: "22px" }}
+                type="radio"
+                name="visibility"
+                value={option}
+                checked={visibility === option}
+                onChange={(event) => setVisibility(event.target.value)}
+              />
+              {option}
+            </label>
+          ))}
         </div>
         <div
           style={{
             display: "flex",
             flexDirection: "row",
-            width: "250px",
+            width: "450px",
             justifyContent: "space-between",
           }}
         >
           <p>Comments:</p>
           <input
-            style={{ height: "20px", width: "100px", marginTop: "15px" }}
+            style={{ height: "20px", width: "300px", marginTop: "15px" }}
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           />
@@ -113,12 +132,12 @@ const AddDiaries = (props: {
         <div
           style={{
             alignItems: "right",
-            width: "250px",
+            width: "450px",
           }}
         >
           <button
             type="submit"
-            style={{ backgroundColor: "lightblue", marginLeft: "180px" }}
+            style={{ backgroundColor: "lightblue", marginLeft: "380px" }}
           >
             Add
           </button>
