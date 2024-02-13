@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Female, Male, Transgender } from "@mui/icons-material";
 import { Patient, Diagnosis } from "../../types";
 import patientService from "../../services/patients";
+import EntryDetails from "./EntryDetails";
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -31,20 +32,7 @@ const PatientInfo = ({ diagnoses }: Props) => {
       <p>occupation: {patient?.occupation}</p>
       <h3>entries</h3>
       {patient?.entries.map((entry) => (
-        <div key={entry?.id}>
-          <p>
-            {entry?.date} <i>{entry?.description}</i>
-          </p>
-          <ul>
-            {entry?.diagnosisCodes?.map((code) => (
-              <li key={code}>
-                <b>{code}</b>
-                {": "}
-                {diagnoses.find((d) => d.code === code)?.name}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <EntryDetails entry={entry} key={entry?.id} />
       ))}
     </div>
   );
