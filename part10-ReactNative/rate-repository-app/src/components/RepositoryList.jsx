@@ -5,9 +5,6 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
-  flatlist: {
-    flex: 1,
-  },
 });
 
 const repositories = [
@@ -62,7 +59,6 @@ const ItemSeparator = () => <View style={styles.separator} />;
 const RepositoryList = () => {
   return (
     <FlatList
-      style={styles.flatlist}
       data={repositories}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => {

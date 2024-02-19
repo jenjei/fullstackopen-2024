@@ -14,9 +14,9 @@ const RepositoryItem = ({ item }) => {
       <Text>Description: {item.description}</Text>
       <Text>Language: {item.language}</Text>
       <Text>Stars: {item.stargazersCount}</Text>
-      <Text></Text>
-      <Text></Text>
-      <Text></Text>
+      <Text>Forks: {item.forksCount}</Text>
+      <Text>Reviews: {item.reviewCount}</Text>
+      <Text>Rating: {item.ratingAverage}</Text>
     </View>
   );
 };
