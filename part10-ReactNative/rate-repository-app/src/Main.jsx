@@ -3,7 +3,10 @@ import RepositoryList from "./components/RepositoryList";
 import AppBar from "./components/AppBar";
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "lightgrey",
+    flex: 1,
+  },
 });
 
 const Main = () => {

@@ -25,7 +25,7 @@ const AppBar = () => {
         <Text
           fontWeight="bold"
           fontSize="subheading"
-          style={{ padding: 20, color: "white" }}
+          style={{ padding: theme.standardPadding.padding, color: "white" }}
         >
           Repositories
         </Text>

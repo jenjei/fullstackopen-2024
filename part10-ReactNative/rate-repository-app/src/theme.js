@@ -15,6 +15,13 @@ const theme = {
     normal: "400",
     bold: "700",
   },
+  standardPadding: {
+    padding: 20,
+  },
+  standardMargin: {
+    marginBottom: 20,
+    margin: 20,
+  },
 };
 
 export default theme;
