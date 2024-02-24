@@ -15,7 +15,7 @@ const TextInput = ({ style, error, ...props }) => {
     <NativeTextInput
       style={{
         ...textInputStyle,
-        borderColor: isError ? theme.colors.error : "grey",
+        borderColor: isError ? theme.colors.error : "lightsteelblue",
       }}
       {...props}
     />

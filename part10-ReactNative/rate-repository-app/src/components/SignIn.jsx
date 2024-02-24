@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     borderRadius: 5,
-    border: "1px solid black",
     borderWidth: 2,
   },
   pressable: {
