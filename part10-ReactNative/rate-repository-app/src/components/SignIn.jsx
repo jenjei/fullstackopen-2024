@@ -1,10 +1,11 @@
-import Text from "./Text";
 import Constants from "expo-constants";
 import { StyleSheet, View, Pressable } from "react-native";
-import FormikTextInput from "./FormikTextInput";
 import { Formik } from "formik";
 import * as yup from "yup";
 import theme from "../theme";
+import useSignIn from "../hooks/useSignIn";
+import FormikTextInput from "./FormikTextInput";
+import Text from "./Text";
 
 const styles = StyleSheet.create({
   container: {
@@ -72,8 +73,18 @@ const UserSignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const { signIn } = useSignIn();
+
+  const onSubmit = async (values) => {
+    console.log("ON SUBMIT values:", values);
+    const { username, password } = values;
+
+    try {
+      const data = await signIn({ username, password });
+      console.log("SIGNIN DATA", data);
+    } catch (e) {
+      console.log("SignIn.jsx ERROR", e);
+    }
   };
 
   const initialValues = {
