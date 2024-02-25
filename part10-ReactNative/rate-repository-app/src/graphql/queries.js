@@ -37,11 +37,22 @@ export const GET_AUTHENTICATED_USER = gql`
 `;
 
 export const GET_REPOSITORY_BY_ID = gql`
-  {
-    repository(id: "jaredpalmer.formik") {
-      id
+  query ($repositoryId: ID!) {
+    repository(id: $repositoryId) {
+      name
       fullName
+      ownerName
+      ratingAverage
+      reviewCount
+      stargazersCount
+      watchersCount
+      forksCount
+      openIssuesCount
       url
+      ownerAvatarUrl
+      description
+      language
+      id
     }
   }
 `;

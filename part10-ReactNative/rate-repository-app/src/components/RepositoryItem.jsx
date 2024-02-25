@@ -54,10 +54,6 @@ const Metrics = ({ value, title }) => {
 };
 
 const RepositoryItem = ({ item, openInGithub }) => {
-  const { data } = useQuery(GET_REPOSITORY_BY_ID, {
-    variables: { id: item.id },
-  });
-
   return (
     <View style={styles.item}>
       <View style={styles.flexHorizontal}>
@@ -110,7 +106,7 @@ const RepositoryItem = ({ item, openInGithub }) => {
             marginVertical: theme.standardMargin.margin,
             backgroundColor: theme.colors.primary,
           }}
-          onPress={() => Linking.openURL(data?.repository.url)}
+          onPress={() => Linking.openURL(item.url)}
         >
           <Text
             fontWeight="bold"
