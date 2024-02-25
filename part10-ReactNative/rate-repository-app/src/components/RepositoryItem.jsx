@@ -1,8 +1,6 @@
 import { View, StyleSheet, Image, Pressable, Linking } from "react-native";
 import theme from "../theme";
 import Text from "./Text";
-import { GET_REPOSITORY_BY_ID } from "../graphql/queries";
-import { useQuery } from "@apollo/client";
 
 const styles = StyleSheet.create({
   item: {
@@ -103,7 +101,7 @@ const RepositoryItem = ({ item, openInGithub }) => {
             ...styles.flexHorizontal,
             borderRadius: 5,
             justifyContent: "center",
-            marginVertical: theme.standardMargin.margin,
+            marginTop: theme.standardMargin.margin,
             backgroundColor: theme.colors.primary,
           }}
           onPress={() => Linking.openURL(item.url)}
