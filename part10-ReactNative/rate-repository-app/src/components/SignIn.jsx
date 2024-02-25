@@ -1,5 +1,6 @@
 import Constants from "expo-constants";
 import { StyleSheet, View, Pressable } from "react-native";
+import { useNavigate } from "react-router-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import theme from "../theme";
@@ -74,14 +75,14 @@ const UserSignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
   const { signIn } = useSignIn();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    console.log("ON SUBMIT values:", values);
-    const { username, password } = values;
-
     try {
-      const data = await signIn({ username, password });
-      console.log("SIGNIN DATA", data);
+      const result = await signIn(values);
+      if (result) {
+        navigate("/");
+      }
     } catch (e) {
       console.log("SignIn.jsx ERROR", e);
     }
