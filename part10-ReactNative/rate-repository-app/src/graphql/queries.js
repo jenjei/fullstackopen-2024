@@ -35,3 +35,13 @@ export const GET_AUTHENTICATED_USER = gql`
     }
   }
 `;
+
+export const GET_REPOSITORY_BY_ID = gql`
+  {
+    repository(id: "jaredpalmer.formik") {
+      id
+      fullName
+      url
+    }
+  }
+`;

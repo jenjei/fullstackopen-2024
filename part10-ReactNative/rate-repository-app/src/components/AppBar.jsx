@@ -27,7 +27,7 @@ const AppBar = () => {
   const apolloClient = useApolloClient();
   const authStorage = useAuthStorage();
 
-  const signInMenuText = data.me ? "Sign out" : "Sign in";
+  const signInMenuText = data?.me ? "Sign out" : "Sign in";
 
   const handleViewChange = async (view) => {
     switch (view) {
@@ -66,7 +66,7 @@ const AppBar = () => {
         <Pressable
           style={styles.pressable}
           onPress={() => {
-            handleViewChange(signText);
+            handleViewChange(signInMenuText);
           }}
         >
           <Text

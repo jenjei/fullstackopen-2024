@@ -1,6 +1,8 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Pressable, Linking } from "react-native";
 import theme from "../theme";
 import Text from "./Text";
+import { GET_REPOSITORY_BY_ID } from "../graphql/queries";
+import { useQuery } from "@apollo/client";
 
 const styles = StyleSheet.create({
   item: {
@@ -51,7 +53,11 @@ const Metrics = ({ value, title }) => {
   );
 };
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, openInGithub }) => {
+  const { data } = useQuery(GET_REPOSITORY_BY_ID, {
+    variables: { id: item.id },
+  });
+
   return (
     <View style={styles.item}>
       <View style={styles.flexHorizontal}>
@@ -95,6 +101,28 @@ const RepositoryItem = ({ item }) => {
         <Metrics value={item.reviewCount} title="Reviews" />
         <Metrics value={item.ratingAverage} title="Rating" />
       </View>
+      {openInGithub && (
+        <Pressable
+          style={{
+            ...styles.flexHorizontal,
+            borderRadius: 5,
+            justifyContent: "center",
+            marginVertical: theme.standardMargin.margin,
+            backgroundColor: theme.colors.primary,
+          }}
+          onPress={() => Linking.openURL(data?.repository.url)}
+        >
+          <Text
+            fontWeight="bold"
+            style={{
+              color: "white",
+              padding: theme.standardPadding.padding / 2,
+            }}
+          >
+            Open in GitHub
+          </Text>
+        </Pressable>
+      )}
     </View>
   );
 };
