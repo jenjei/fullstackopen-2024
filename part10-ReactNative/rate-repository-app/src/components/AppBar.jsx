@@ -1,6 +1,9 @@
 import { View, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useNavigate } from "react-router-native";
 import Constants from "expo-constants";
+import { useApolloClient, useQuery } from "@apollo/client";
+import { GET_AUTHENTICATED_USER } from "../graphql/queries";
+import useAuthStorage from "../hooks/useAuthStorage";
 import theme from "../theme";
 import Text from "./Text";
 
@@ -20,11 +23,20 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
   const navigate = useNavigate();
+  const { data } = useQuery(GET_AUTHENTICATED_USER);
+  const apolloClient = useApolloClient();
+  const authStorage = useAuthStorage();
 
-  const handleViewChange = (view) => {
+  const signInMenuText = data.me ? "Sign out" : "Sign in";
+
+  const handleViewChange = async (view) => {
     switch (view) {
-      case "sign-in":
+      case "Sign in":
         navigate("/sign-in");
+        break;
+      case "Sign out":
+        await authStorage.removeAccessToken(); // Pressing the "Sign out" tab should remove the user's access token from the storage
+        apolloClient.resetStore(); // ... and reset the Apollo cache
         break;
       case "main":
         navigate("/");
@@ -54,7 +66,7 @@ const AppBar = () => {
         <Pressable
           style={styles.pressable}
           onPress={() => {
-            handleViewChange("sign-in");
+            handleViewChange(signText);
           }}
         >
           <Text
@@ -62,7 +74,7 @@ const AppBar = () => {
             fontSize="subheading"
             style={{ padding: theme.standardPadding.padding, color: "white" }}
           >
-            Sign in
+            {signInMenuText}
           </Text>
         </Pressable>
       </ScrollView>
