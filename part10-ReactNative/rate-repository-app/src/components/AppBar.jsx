@@ -41,6 +41,8 @@ const AppBar = () => {
       case "main":
         navigate("/");
         break;
+      case "create-review":
+        navigate("/create-review");
       default:
         break;
     }
@@ -63,6 +65,22 @@ const AppBar = () => {
             Repositories
           </Text>
         </Pressable>
+        {data?.me && (
+          <Pressable
+            style={styles.pressable}
+            onPress={() => {
+              handleViewChange("create-review");
+            }}
+          >
+            <Text
+              fontWeight="bold"
+              fontSize="subheading"
+              style={{ padding: theme.standardPadding.padding, color: "white" }}
+            >
+              Create Review
+            </Text>
+          </Pressable>
+        )}
         <Pressable
           style={styles.pressable}
           onPress={() => {

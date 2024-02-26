@@ -7,3 +7,25 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_REVIEW_MUTATION = gql`
+  mutation ReviewPostMutation(
+    $text: String!
+    $rating: Int!
+    $ownerName: String!
+    $repositoryName: String!
+  ) {
+    createReview(
+      review: {
+        text: $text
+        rating: $rating
+        ownerName: $ownerName
+        repositoryName: $repositoryName
+      }
+    ) {
+      repository {
+        id
+      }
+    }
+  }
+`;
