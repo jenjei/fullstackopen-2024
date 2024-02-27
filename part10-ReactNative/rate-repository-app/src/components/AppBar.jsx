@@ -38,6 +38,9 @@ const AppBar = () => {
         await authStorage.removeAccessToken(); // Pressing the "Sign out" tab should remove the user's access token from the storage
         apolloClient.resetStore(); // ... and reset the Apollo cache
         break;
+      case "Sign up":
+        navigate("/sign-up");
+        break;
       case "main":
         navigate("/");
         break;
@@ -95,6 +98,22 @@ const AppBar = () => {
             {signInMenuText}
           </Text>
         </Pressable>
+        {!data?.me && (
+          <Pressable
+            style={styles.pressable}
+            onPress={() => {
+              handleViewChange("Sign up");
+            }}
+          >
+            <Text
+              fontWeight="bold"
+              fontSize="subheading"
+              style={{ padding: theme.standardPadding.padding, color: "white" }}
+            >
+              Sign up
+            </Text>
+          </Pressable>
+        )}
       </ScrollView>
     </View>
   );

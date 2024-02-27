@@ -29,3 +29,11 @@ export const CREATE_REVIEW_MUTATION = gql`
     }
   }
 `;
+
+export const NEW_USER_MUTATION = gql`
+  mutation newUser($username: String!, $password: String!) {
+    createUser(user: { username: $username, password: $password }) {
+      username
+    }
+  }
+`;
