@@ -10,6 +10,7 @@ const useRepositories = (props) => {
     variables: {
       orderBy: props.orderBy,
       orderDirection: props.orderDirection,
+      searchKeyword: props.searchKeyword,
     },
   });
   if (loading) {

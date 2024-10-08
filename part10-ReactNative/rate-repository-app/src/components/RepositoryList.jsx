@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import RepositoryItem from "./RepositoryItem";
@@ -6,6 +6,7 @@ import useRepositories from "../hooks/useQuery";
 import theme from "../theme";
 import { useNavigate } from "react-router-native";
 import Text from "./Text";
+import { Searchbar } from "react-native-paper";
 
 const styles = StyleSheet.create({
   separator: {
@@ -78,9 +79,12 @@ const FilterRepositories = ({
 const RepositoryList = () => {
   const [orderDirection, setOrderDirection] = useState("ASC");
   const [orderBy, setOrderBy] = useState("CREATED_AT");
+  const [searchText, setSearchText] = useState('');
+  const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
+  
   const navigate = useNavigate();
   let filter = "";
-  const { repositories } = useRepositories({ orderBy, orderDirection });
+  const { repositories } = useRepositories({ orderBy, orderDirection, searchKeyword: debouncedSearchText });
 
   const handleItemPress = (item) => {
     navigate(`/${item.id}`);
@@ -91,8 +95,26 @@ const RepositoryList = () => {
     ? repositories.edges.map((edge) => edge.node)
     : [];
 
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedSearchText(searchText);
+      }, 300); 
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [searchText])
+
+  const searchTextAdjustment = (query) => {
+    setSearchText(query);
+  };
   return (
     <View>
+      <Searchbar 
+        style={{ margin: 5 }}
+        value={searchText}
+        onChangeText={searchTextAdjustment}
+        
+      />
       <FlatList
         ListHeaderComponent={() => (
           <FilterRepositories
