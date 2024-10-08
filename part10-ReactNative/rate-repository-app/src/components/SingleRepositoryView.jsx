@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
   const date = new Date(review.createdAt);
   const day = date.getDate().toString().padStart(2, "0"); // Get the day and pad with leading zero if necessary
   const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Get the month (Note: Month is zero-based)

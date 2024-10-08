@@ -94,7 +94,6 @@ const ReviewFormView = () => {
   const navigate = useNavigate();
   const { createReview } = useCreateReview();
   const [error, setError] = useState(false);
-
   const initialValues = {
     repositoryOwnerName: "",
     repositoryName: "",

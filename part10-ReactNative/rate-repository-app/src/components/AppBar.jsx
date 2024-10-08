@@ -45,8 +45,13 @@ const AppBar = () => {
         navigate("/");
         break;
       case "create-review":
+        console.log("create-review")
         navigate("/create-review");
+        break;
       default:
+      case "user-reviews":
+        console.log("user-reviews");
+        navigate(`/${data.me.id}/reviews`)
         break;
     }
   };
@@ -69,20 +74,36 @@ const AppBar = () => {
           </Text>
         </Pressable>
         {data?.me && (
-          <Pressable
-            style={styles.pressable}
-            onPress={() => {
-              handleViewChange("create-review");
-            }}
-          >
-            <Text
-              fontWeight="bold"
-              fontSize="subheading"
-              style={{ padding: theme.standardPadding.padding, color: "white" }}
+          <>
+            <Pressable
+              style={styles.pressable}
+              onPress={() => {
+                handleViewChange("create-review");
+              }}
             >
-              Create Review
-            </Text>
-          </Pressable>
+              <Text
+                fontWeight="bold"
+                fontSize="subheading"
+                style={{ padding: theme.standardPadding.padding, color: "white" }}
+              >
+                Create Review
+              </Text>
+            </Pressable>
+            <Pressable
+              style={styles.pressable}
+              onPress={() => {
+                handleViewChange("user-reviews")
+              }}
+              >
+              <Text
+                fontWeight="bold"
+                fontSize="subheading" 
+                style={{ padding: theme.standardPadding.padding, color: "white" }}
+              >
+                My Reviews           
+              </Text>
+            </Pressable>
+          </>
         )}
         <Pressable
           style={styles.pressable}
