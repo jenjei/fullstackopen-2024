@@ -84,7 +84,7 @@ const RepositoryList = () => {
   
   const navigate = useNavigate();
   let filter = "";
-  const { repositories } = useRepositories({ orderBy, orderDirection, searchKeyword: debouncedSearchText });
+  const { repositories, fetchMore } = useRepositories({ orderBy, orderDirection, searchKeyword: debouncedSearchText, first: 5 });
 
   const handleItemPress = (item) => {
     navigate(`/${item.id}`);
@@ -95,6 +95,11 @@ const RepositoryList = () => {
     ? repositories.edges.map((edge) => edge.node)
     : [];
 
+    const onEndReach = () => {
+      if(fetchMore){
+        fetchMore();
+      }
+    };
     useEffect(() => {
       const handler = setTimeout(() => {
         setDebouncedSearchText(searchText);
@@ -116,6 +121,8 @@ const RepositoryList = () => {
         
       />
       <FlatList
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
         ListHeaderComponent={() => (
           <FilterRepositories
             orderBy={orderBy}

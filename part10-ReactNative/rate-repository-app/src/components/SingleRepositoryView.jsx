@@ -143,11 +143,17 @@ export const ReviewItem = ({ review, userView }) => {
 const SingleRepositoryView = () => {
   const { id } = useParams();
   const result = useRepository(id);
-  const reviews = useGetReviews(id);
-
-  const reviewNodes = reviews.data?.reviews
-    ? reviews.data.reviews.edges.map((edge) => edge.node)
+  const reviews = useGetReviews({first: 2, id: id});
+  const reviewNodes = reviews.reviews?.reviews
+    ? reviews.reviews.reviews.edges.map((edge) => edge.node)
     : [];
+
+    const onEndReach = () => {
+      console.log("End reached... fetching more");
+      if(reviews.fetchMore){
+        reviews.fetchMore();
+      }
+    }
 
   if (!result.data) {
     console.log("SingleRepositoryView: result.data is null");
@@ -157,6 +163,8 @@ const SingleRepositoryView = () => {
         data={reviewNodes}
         renderItem={({ item }) => <ReviewItem review={item} />}
         keyExtractor={({ id }) => id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
         ListHeaderComponent={() => (
           <RepositoryItem
             item={result.data}
