@@ -30,7 +30,7 @@ export const UserReviewList = () => {
         {reviewData && (
             <FlatList
             data={userOwnReviews()}
-            renderItem={({item}) => (<ReviewItem review={item}/>)}
+            renderItem={({item}) => (<ReviewItem review={item} userView={true}/>)}
             keyExtractor={(item) => item.id}
             /> 
         )}
