@@ -61,3 +61,4 @@ typings/
 .next
 mongo_data
 mongo-data
+redis_data

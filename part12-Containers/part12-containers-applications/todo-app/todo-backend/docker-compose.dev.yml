@@ -9,6 +9,12 @@ services:
       MONGO_INITDB_DATABASE: the_database
     volumes:
       - mongo_data:/data/db
-
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data/redis    
 volumes:
   mongo_data:
+  redis_data:
