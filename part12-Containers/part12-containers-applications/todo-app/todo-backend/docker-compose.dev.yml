@@ -27,7 +27,7 @@ services:
       dockerfile: dev.Dockerfile
     container_name: todo-backend-dev
     volumes: 
-      - ./:/usr/src/app      
+      - ./:/usr/src/app   
 volumes:
   mongo_data:
   redis_data:
