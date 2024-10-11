@@ -43,7 +43,7 @@ singleRouter.get('/', async (req, res) => {
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
   try {
-    const result = await Todo.findByIdAndUpdate(req.body._id, req.body, {new: true});
+    const result = await Todo.findByIdAndUpdate(req.todo.id, req.body, {new: true});
     res.status(200).json(result);
   } catch {
   res.sendStatus(405); // Implement this
