@@ -17,6 +17,7 @@ services:
     volumes:
       - redis_data:/data/redis
   app:
+    image: todo-backend-dev
     ports:
       - 3000:3000
     environment:
