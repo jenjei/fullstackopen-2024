@@ -11,7 +11,7 @@ export const Todo = ({todo, deleteTodo, completeTodo}) => {
         completeTodo(todo)
       }
 
-    const [done, setIsDone] = useState(todo.done ? "This todo is done" : "This todo is not done");
+    const [done, setIsDone] = useState(todo.done ? "This todo is sdsdsdone" : "This todo is not done");
     console.log(todo.done);
 
     const doneInfo = (
